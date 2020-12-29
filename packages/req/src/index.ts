@@ -1,1 +1,1 @@
-export * from './modules/vaild'
+export * from './modules/vaildator'
