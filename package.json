@@ -18,7 +18,8 @@
     "clean:init": "npm run clean && npm run init",
     "format": "npm run format:tslint",
     "format:tslint": "tslint --fix --config ./tslint.json 'src/**/*.{ts,tsx}'",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "test:build": "npm run build && npm run test"
   },
   "devDependencies": {
     "cross-env": "^7.0.2",

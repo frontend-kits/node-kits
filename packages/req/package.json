@@ -26,17 +26,10 @@
   "homepage": "https://github.com/lynnkoo/js-basic-kit#readme",
   "devDependencies": {
     "@types/jest": "^25.2.3",
-    "husky": "^3.0.7",
     "jest": "^26.0.1",
-    "lint-staged": "^9.4.0",
     "prettier": "^1.18.2",
     "tslint": "^5.11.0",
     "typescript": "^3.2.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "publishConfig": {
     "access": "public"
@@ -49,7 +42,7 @@
   },
   "gitHead": "f12b8bd6d88f9f211723965110f37be5cb72617d",
   "dependencies": {
-    "@basic-kits/js": "^0.0.4",
+    "@basic-kits/js": "^0.0.5",
     "mysql2": "^2.2.5"
   }
 }

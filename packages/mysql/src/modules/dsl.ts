@@ -1,4 +1,5 @@
 import { createSampleSQL } from './builder'
+import { xParse } from '@basic-kits/js'
 
 const keywords = [
     'SELECT',
@@ -13,14 +14,6 @@ const keywords = [
     'JOIN',
     'ON',
 ]
-
-function parseArg(arg: string) {
-    try {
-        return JSON.parse(arg)
-    } catch(e) {
-        return arg
-    }
-}
 
 export function createSampleDSL(name: string, mapper: any) {
     const builder = createSampleSQL(name, mapper)
@@ -42,7 +35,7 @@ export function createSampleDSL(name: string, mapper: any) {
                     margs = []
                     mkey = key
                 } else {
-                    margs.push(parseArg(key))
+                    margs.push(xParse(key))
                 }
             })
             margs.push(args[idx])
