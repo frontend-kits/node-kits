@@ -81,10 +81,10 @@ const SAMPLE_SQLS1: string[][] = [[
 const SAMPLE_SQLS2: string[][] = [[
     SQL1.DELETE().WHERE(model1).END(), 
     DSL1`DELETE WHERE ${model1}`,
-    "DELETE FROM `table_1` WHERE `id`=1 AND `text`='text' AND `kana`=111 AND `testName`='testName'",
+    "DELETE FROM `table_1` WHERE `id`=1 AND `text`='text' AND `kana`=111 AND `t_name`='testName'",
 ],[
     SQL1.DELETE().WHERE('OR', model1).END(), 
-    "DELETE FROM `table_1` WHERE `id`=1 OR `text`='text' OR `kana`=111 OR `testName`='testName'",
+    "DELETE FROM `table_1` WHERE `id`=1 OR `text`='text' OR `kana`=111 OR `t_name`='testName'",
 ],[
     SQL1.DELETE().WHERE({ id: [1, 2]}).END(), 
     "DELETE FROM `table_1` WHERE `id` IN (1, 2)"
@@ -93,9 +93,9 @@ const SAMPLE_SQLS2: string[][] = [[
     DSL1`SELECT EXC[id] LIMIT`,
     "SELECT `text`, `kana`, `t_name` as `testName` FROM `table_1` LIMIT 1"
 ],[
-    SQL1.SELECT(['id']).WHERE({ id: 1 }).END(), 
-    DSL1`SELECT ${['id']} WHERE ${{ id: 1 }}`,
-    "SELECT `id` FROM `table_1` WHERE `id`=1"
+    SQL1.SELECT(['id']).WHERE({ testName: 1 }).END(), 
+    DSL1`SELECT ${['id']} WHERE ${{ testName: 1 }}`,
+    "SELECT `id` FROM `table_1` WHERE `t_name`=1"
 ],[
     SQL1.SELECT("INC", ['id']).ORDER('id.desc').LIMIT(1, 2).END(), 
     DSL1`SELECT INC[id] ORDER id.desc LIMIT 1 2`,
@@ -112,6 +112,14 @@ const SAMPLE_SQLS2: string[][] = [[
     SQL1.SELECT(['id']).TOTAL('totalName').END(), 
     DSL1`SELECT [id] TOTAL totalName`,
     "SELECT SQL_CALC_FOUND_ROWS `id` FROM `table_1`; SELECT FOUND_ROWS() as `totalName`"
+],[
+    SQL1.SELECT(['id']).MATCH({ id: '123-1' }).END(), 
+    DSL1`SELECT [id] MATCH ${{ id: '123-1' }}`,
+    "SELECT `id` FROM `table_1` WHERE MATCH(`id`) AGAINST('123-1' IN BOOLEAN MODE)"
+],[
+    SQL1.SELECT(['id']).MATCH({ id: '123-1' }).WHERE({ id: 1 }).END(), 
+    DSL1`SELECT [id] MATCH ${{ id: '123-1' }} WHERE ${{ id: 1 }}`,
+    "SELECT `id` FROM `table_1` WHERE MATCH(`id`) AGAINST('123-1' IN BOOLEAN MODE) AND `id`=1"
 ],]
 
 

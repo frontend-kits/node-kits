@@ -13,6 +13,7 @@ const keywords = [
     'LIMIT',
     'JOIN',
     'ON',
+    'MATCH',
 ]
 
 export function createSampleDSL(name: string, mapper: any) {

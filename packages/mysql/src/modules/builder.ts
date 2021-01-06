@@ -13,6 +13,7 @@ type SQLStrings =  {
     selecton?: string
     join?: string
     subjoin?: string
+    match?: string
 }
 
 export class SampleSQLBuilder<T = any> {
@@ -77,7 +78,17 @@ export class SampleSQLBuilder<T = any> {
         this.strs.update = update
         return this
     }
-    
+    public MATCH(query?: any) {
+        const keys = Object.keys(query)
+        const mapper = this.mapper.filter(m => keys.includes(m.name) && query[m.name])
+        const columns = mapper.map(m => mysql.format('??', [m.column || m.name ])).join(', ')
+        const values = mapper.map(m => {
+            return query[m.name]
+        }).join(' ')
+
+        this.strs.match = mysql.format(`MATCH(${columns}) AGAINST(? IN BOOLEAN MODE)`, [values])
+        return this
+    }
     public WHERE(type: 'AND' | 'OR' | any, query?: any) {
         if (!query) {
             query = type
@@ -88,10 +99,10 @@ export class SampleSQLBuilder<T = any> {
         const where = mapper.map(m => {
             const v = query[m.name]
             if (!Array.isArray(v)) {
-                return mysql.format('??=?', [m.name, v])
+                return mysql.format('??=?', [m.column || m.name, v])
             } else {
                 const placeholders = v.map(() => '?').join(', ')
-                return mysql.format(`?? IN (${placeholders})`, [m.name, ...v])
+                return mysql.format(`?? IN (${placeholders})`, [m.column || m.name, ...v])
             }
         }).join(` ${type} `)
         this.strs.where = where 
@@ -192,7 +203,12 @@ export class SampleSQLBuilder<T = any> {
         } else {
             sql = mysql.format(`SELECT ${selectStr} FROM ??`, [name])
         }
-        if (strs.where) {
+        if (strs.match) {
+            sql += ` WHERE ${strs.match}`
+        }
+        if (strs.match && strs.where) {
+            sql += ` AND ${strs.where}`
+        } else if (strs.where) {
             sql += ` WHERE ${strs.where}`
         }
         if (strs.order) {
