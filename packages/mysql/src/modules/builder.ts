@@ -37,7 +37,7 @@ export class SampleSQLBuilder<T = any> {
             } else {
                 type = 'INC'
             }
-            names = m[1].split('\,\s*')
+            names = m[1].split(/\,\s*/)
         }
         let mapper = this.mapper
         const filterNames = names
