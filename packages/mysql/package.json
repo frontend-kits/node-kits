@@ -1,6 +1,6 @@
 {
   "name": "@node-kits/mysql",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "js-basic-kit",
   "sideEffects": false,
   "main": "lib/index.js",
