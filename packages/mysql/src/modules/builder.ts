@@ -62,7 +62,7 @@ export class SampleSQLBuilder<T = any> {
     public INSERT(model: any) {
         const keys = Object.keys(model)
         const mapper = this.mapper.filter(m => !m.primary && keys.includes(m.name) && model[m.name])
-        const insert = mapper.map(m => mysql.format('??', [m.name])).join(', ')
+        const insert = mapper.map(m => mysql.format('??', [m.column || m.name])).join(', ')
         const values = mapper.map(m => mysql.format('?', [model[m.name]])).join(', ')
         this.strs = { insert: `(${insert}) VALUES(${values})` }
         return this
@@ -73,7 +73,7 @@ export class SampleSQLBuilder<T = any> {
             const editable = typeof m.editable === 'undefined' ? true : m.editable
             return editable && !m.primary && keys.includes(m.name) && model[m.name]
         })
-        const update = mapper.map(m => mysql.format('??=?', [m.name, model[m.name]])).join(', ')
+        const update = mapper.map(m => mysql.format('??=?', [m.column || m.name, model[m.name]])).join(', ')
         this.strs.update = update
         return this
     }

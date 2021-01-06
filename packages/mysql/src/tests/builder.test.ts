@@ -53,15 +53,15 @@ const SAMPLE_SQLS1: string[][] = [[
 ],[
     SQL1.INSERT(model1).END(),
     DSL1`INSERT ${model1}`,
-    "INSERT INTO `table_1`(`text`, `kana`, `testName`) VALUES('text', 111, 'testName')",
+    "INSERT INTO `table_1`(`text`, `kana`, `t_name`) VALUES('text', 111, 'testName')",
 ],[
     SQL1.UPDATE(model1).WHERE({ id: 1 }).END(), 
     DSL1`UPDATE ${model1} WHERE ${{ id: 1 }}`,
-    "UPDATE `table_1` SET `text`='text', `testName`='testName' WHERE `id`=1",
+    "UPDATE `table_1` SET `text`='text', `t_name`='testName' WHERE `id`=1",
 ],[
     SQL1.UPDATE(model1).END(),
     DSL1`UPDATE ${model1}`,
-    "UPDATE `table_1` SET `text`='text', `testName`='testName'"
+    "UPDATE `table_1` SET `text`='text', `t_name`='testName'"
 ],[
     SQL1.DELETE().END(), 
     DSL1`DELETE`,

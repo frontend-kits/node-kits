@@ -11,6 +11,7 @@ const app = new Koa()
 onerror(app, { all: onError })
 
 function onError(err: any, ctx: any) {
+  ctx.body = `Server Error: ${err.message}`
   console.error(`server error: ${err}, ${JSON.stringify(ctx)}; ${new Date().toISOString()}`)
 }
 
