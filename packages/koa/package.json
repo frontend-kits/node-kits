@@ -59,7 +59,6 @@
     "koa-bodyparser": "^4.2.1",
     "koa-json": "^2.0.2",
     "koa-logger": "^3.2.0",
-    "koa-onerror": "^4.1.0",
     "koa-router": "^7.4.0",
     "koa-send": "^5.0.1",
     "koa2-connect": "^1.0.2"

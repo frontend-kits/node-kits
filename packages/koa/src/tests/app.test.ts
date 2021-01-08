@@ -53,6 +53,5 @@ test('test for app error', async () => {
         .get('/error')
         .query(mockQuery)
         .send(mockBody)
-    console.log(res.body)
     expect(res.body).toMatchObject({})
 })

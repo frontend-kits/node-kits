@@ -2,18 +2,8 @@ import Koa from 'koa'
 import json from 'koa-json'
 import bodyparser from 'koa-bodyparser'
 import logger from 'koa-logger'
-// @ts-ignore
-import onerror from 'koa-onerror'
 
 const app = new Koa()
-
-// error handler
-onerror(app, { all: onError })
-
-function onError(err: any, ctx: any) {
-  ctx.body = `Server Error: ${err.message}`
-  console.error(`server error: ${err}, ${JSON.stringify(ctx)}; ${new Date().toISOString()}`)
-}
 
 // middlewares
 app.use(bodyparser({
@@ -33,7 +23,7 @@ app.use(async (ctx, next) => {
 
 // error-handling
 app.on('error', (err, ctx) => {
-  // console.error('server error: ', err, JSON.stringify(ctx))
-})
+  console.error(`Internal Server Error: ${JSON.stringify(err)}, ${JSON.stringify(ctx)}; ${new Date().toISOString()}`);
+});
 
 export default app

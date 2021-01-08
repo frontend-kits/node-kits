@@ -16,8 +16,13 @@ type SQLStrings =  {
     match?: string
 }
 
+type SQLFormats = {
+    where?: string
+}
+
 export class SampleSQLBuilder<T = any> {
-    private strs : SQLStrings = {}
+    private strs: SQLStrings = {}
+    private formats: SQLFormats = {}
     private mapper: any[]
     private name: string
     constructor(name: string, mapper: any[]) {
@@ -169,6 +174,13 @@ export class SampleSQLBuilder<T = any> {
         this.strs.on = mysql.format('??', [`${this.name}.${name}`])
         return this
     }
+
+    public SQL(type: 'WHERE', sql: string, args: any) {
+        if (type === 'WHERE') {
+            this.formats.where = mysql.format(sql.trim(), args)
+        }
+        return this
+    }
     
     public END() {
         const { select, update, delete: _delete, insert } = this.strs
@@ -189,7 +201,7 @@ export class SampleSQLBuilder<T = any> {
     }
 
     private createSelectSQL() {
-        const { strs, name } = this
+        const { strs, formats, name } = this
         let selectStr = strs.select
         if (strs.on && !strs.join) {
             return JSON.stringify([this.name, this.strs])
@@ -203,13 +215,11 @@ export class SampleSQLBuilder<T = any> {
         } else {
             sql = mysql.format(`SELECT ${selectStr} FROM ??`, [name])
         }
-        if (strs.match) {
-            sql += ` WHERE ${strs.match}`
-        }
-        if (strs.match && strs.where) {
-            sql += ` AND ${strs.where}`
-        } else if (strs.where) {
-            sql += ` WHERE ${strs.where}`
+
+        sql += this.createWhereSQL()
+
+        if (formats.where) {
+            sql += ` ${formats.where}`
         }
         if (strs.order) {
             sql += ` ORDER BY ${strs.order}`
@@ -222,6 +232,24 @@ export class SampleSQLBuilder<T = any> {
         }
         return sql
     }
+    private createWhereSQL() {
+        const { strs } = this
+        let sql = ''
+        if (!strs.where && !strs.match) {
+            return sql
+        }
+        if (strs.where) {
+            sql +=  ` WHERE ${strs.where}`
+        } else if (strs.match) {
+            sql +=  ` WHERE ${strs.match}`
+        } 
+        
+        if (strs.where && strs.match) {
+            sql += ` AND ${strs.match}`
+        }
+
+        return sql
+    }
     private createInsertSQL() {
         const { strs, name } = this
         return mysql.format(`INSERT INTO ??${strs.insert}`, [name])
@@ -230,18 +258,14 @@ export class SampleSQLBuilder<T = any> {
     private createUpdateSQL() {
         const { strs, name } = this
         let sql = mysql.format(`UPDATE ?? SET ${strs.update}`, [name])
-        if (strs.where) {
-            sql += ` WHERE ${strs.where}`
-        }
+        sql += this.createWhereSQL()
         return sql
     }
 
     private createDeleteSQL() {
         const { strs, name } = this
         let sql = mysql.format(`DELETE FROM ??`, [name])
-        if (strs.where) {
-            sql += ` WHERE ${strs.where}`
-        }
+        sql += this.createWhereSQL()
         return sql
     }
 }

@@ -14,6 +14,8 @@ const keywords = [
     'JOIN',
     'ON',
     'MATCH',
+    'SQL',
+    'LIKE',
 ]
 
 export function createSampleDSL(name: string, mapper: any) {
@@ -21,6 +23,9 @@ export function createSampleDSL(name: string, mapper: any) {
     const exec = (key: string, arg: any[]) => {
         if (!key) {
             return
+        }
+        if (key === 'SQL') {
+            arg = ['WHERE', ...arg]
         }
         (builder as any)[key](...arg)
     }
