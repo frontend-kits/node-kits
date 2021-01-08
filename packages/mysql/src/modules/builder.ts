@@ -14,6 +14,7 @@ type SQLStrings =  {
     join?: string
     subjoin?: string
     match?: string
+    unique?: string
 }
 
 type SQLFormats = {
@@ -116,15 +117,19 @@ export class SampleSQLBuilder<T = any> {
     public ORDER(orderStr: string | string[], ...others: string[]) {
         let orderStrs = Array.isArray(orderStr) ? orderStr : [orderStr]
         orderStrs = orderStrs.concat(others)
-        const orders = orderStrs.map(o => {
-            const [ name, type ] = o.split('\.')
-            return { name, type: type.toUpperCase() }
+        const morders = orderStrs.map(o => {
+            const [ name, type = '', subtype = '' ] = o.split('\.')
+            const m = this.mapper.find(m => m.name === name)
+            return { name: m && (m.column || m.name), type: type.toUpperCase(), subtype: subtype.toUpperCase() }
         }).filter(o => o.name 
-            && ['ASC', 'DESC'].includes(o.type) 
-            && this.mapper.find(m => m.name === o.name)
+            && ['ASC', 'DESC', 'UNIQUE'].includes(o.type)
         )
+        const orders = morders.map(o => ({ ...o, type: ['ASC', 'DESC'].includes(o.type) ? o.type : o.subtype })).filter(o => Boolean(o.type))
+        const uniques = morders.map(o => ({ ...o, type: ['UNIQUE'].includes(o.type) ? o.type : o.subtype })).filter(o => Boolean(o.type))
         const order = orders.map(o => mysql.format(`?? ${o.type}`, [o.name])).join(', ')
+        const unique = uniques.map(o => mysql.format(`??`, [o.name])).join(', ')
         this.strs.order = order
+        this.strs.unique = unique
         return this
     }
     public TOTAL(name: string = 'total') {
@@ -221,6 +226,9 @@ export class SampleSQLBuilder<T = any> {
 
         if (formats.where) {
             sql += ` ${formats.where}`
+        }
+        if (strs.unique) {
+            sql += ` GROUP BY ${strs.unique}`
         }
         if (strs.order) {
             sql += ` ORDER BY ${strs.order}`

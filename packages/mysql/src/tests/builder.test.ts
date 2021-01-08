@@ -97,13 +97,13 @@ const SAMPLE_SQLS2: string[][] = [[
     DSL1`SELECT ${['id']} WHERE ${{ testName: 1 }}`,
     "SELECT `id` FROM `table_1` WHERE `t_name`=1"
 ],[
-    SQL1.SELECT("INC", ['id']).ORDER('id.desc').LIMIT(1, 2).END(), 
-    DSL1`SELECT INC[id] ORDER id.desc LIMIT 1 2`,
-    "SELECT `id` FROM `table_1` ORDER BY `id` DESC LIMIT 2, 1"
+    SQL1.SELECT("INC", ['id']).ORDER('id.desc.unique').LIMIT(1, 2).END(), 
+    DSL1`SELECT INC[id] ORDER id.desc.unique LIMIT 1 2`,
+    "SELECT `id` FROM `table_1` GROUP BY `id` ORDER BY `id` DESC LIMIT 2, 1"
 ],[
-    SQL1.SELECT(['id']).ORDER(['id.desc', 'kana.asc']).LIMIT(1).END(), 
-    DSL1`SELECT INC[id] ORDER id.desc kana.asc LIMIT 1`,
-    "SELECT `id` FROM `table_1` ORDER BY `id` DESC, `kana` ASC LIMIT 1"
+    SQL1.SELECT(['id']).ORDER(['id.desc', 'kana.asc', 'testName.unique']).LIMIT(1).END(), 
+    DSL1`SELECT INC[id] ORDER id.desc kana.asc testName.unique LIMIT 1`,
+    "SELECT `id` FROM `table_1` GROUP BY `t_name` ORDER BY `id` DESC, `kana` ASC LIMIT 1"
 ],[
     SQL1.SELECT(['id']).TOTAL().END(), 
     DSL1`SELECT [id] TOTAL`,
