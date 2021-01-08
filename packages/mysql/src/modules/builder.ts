@@ -150,7 +150,7 @@ export class SampleSQLBuilder<T = any> {
             type = 'INNER'
         }
         const { strs, name } = this
-        const maps = builders.map(str => JSON.parse(str) as [string, SQLStrings])
+        const maps = builders.filter(Boolean).map(str => JSON.parse(str) as [string, SQLStrings])
         const [sname, sstr] = maps[0]
 
         const subjoin = mysql.format(`${type} JOIN ?? ON ${strs.on}=${sstr.on}`, [sname])
@@ -197,6 +197,7 @@ export class SampleSQLBuilder<T = any> {
             sql = this.createInsertSQL()
         }
         this.strs = {}
+        this.formats = {}
         return sql
     }
 

@@ -123,7 +123,7 @@ const SAMPLE_SQLS2: string[][] = [[
 ],[
     SQL1.SELECT(['id']).MATCH({ id: '123-1' }).WHERE({ id: 1 }).SQL('WHERE', 'AND x=?', 1).END(), 
     DSL1`SELECT [id] MATCH ${{ id: '123-1' }} WHERE ${{ id: 1 }} SQL ${'AND x=?'} ${1}`,
-    "SELECT `table_1`.`id`, `table_222222`.`id` FROM `table_1` INNER JOIN `table_222222` ON `table_1`.`id`=`table_222222`.`id` AND x = 1"
+    "SELECT `id` FROM `table_1` WHERE `id`=1 AND MATCH(`id`) AGAINST('123-1' IN BOOLEAN MODE) AND x=1"
 ],]
 
 

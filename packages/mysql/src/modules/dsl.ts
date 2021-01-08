@@ -45,10 +45,11 @@ export function createSampleDSL(name: string, mapper: any) {
                 }
             })
             margs.push(args[idx])
-            exec(mkey, margs)
-            mkey = ''
+            
         })
-        
+        if (mkey) {
+            exec(mkey, margs)
+        }
         return builder.END()
     }
 }
