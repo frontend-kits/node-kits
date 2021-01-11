@@ -101,9 +101,40 @@ export class SampleSQLBuilder<T = any> {
             type = 'AND'
         }
         const keys = Object.keys(query)
-        const mapper = this.mapper.filter(m => keys.includes(m.name) && query[m.name])
-        const where = mapper.map(m => {
-            const v = query[m.name]
+        const typeKeys = keys.map(k => [k, ...k.split('.')])
+        const callKeys = keys.map(k => [k, ...k.split('::')])
+
+        const mapper = []
+        for (const m of this.mapper) {
+            const mkey = keys.find(k => m.name === k)
+            if (mkey) {
+                mapper.push({ ...m, key: mkey, querykey: mkey })
+                continue 
+            }
+            const mvalues = typeKeys.find(([q, k]) => m.name === k)
+            if (mvalues) {
+                const [querykey, key, mtype = '' ] = mvalues
+                const type = mtype.toLocaleUpperCase()
+                mapper.push({ ...m, key, querykey, type })
+            }
+            const cvalues = callKeys.find(([q, k]) => m.name === k)
+            if (cvalues) {
+                const [querykey, key, call = '' ] = cvalues
+                mapper.push({ ...m, key, querykey, call })
+            }
+        }
+
+        const where = mapper.filter(m => m.key).map(m => {
+            const v = query[m.querykey]
+            if (m.call) {
+                return mysql.format(`${m.call}(??)=?`, [m.column || m.name, v])            
+            }
+            if (m.type === 'LIKE') {
+                return mysql.format(`?? LIKE ?`, [m.column || m.name, v])
+            }
+            if (m.type === 'MATCH') {
+                return mysql.format(`MATCH(??) AGAINST(? IN BOOLEAN MODE)`, [m.column || m.name, v])
+            }
             if (!Array.isArray(v)) {
                 return mysql.format('??=?', [m.column || m.name, v])
             } else {
@@ -254,7 +285,7 @@ export class SampleSQLBuilder<T = any> {
         } 
         
         if (strs.where && strs.match) {
-            sql += ` AND ${strs.match}`
+            sql += ` OR ${strs.match}`
         }
 
         return sql

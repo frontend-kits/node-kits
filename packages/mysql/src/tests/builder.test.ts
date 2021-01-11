@@ -114,16 +114,20 @@ const SAMPLE_SQLS2: string[][] = [[
     "SELECT SQL_CALC_FOUND_ROWS `id` FROM `table_1`; SELECT FOUND_ROWS() as `totalName`"
 ],[
     SQL1.SELECT(['id']).MATCH({ id: '123-1' }).END(), 
-    DSL1`SELECT [id] MATCH ${{ id: '123-1' }}`,
+    DSL1`SELECT [id] WHERE ${{ 'id.match': '123-1' }}`,
     "SELECT `id` FROM `table_1` WHERE MATCH(`id`) AGAINST('123-1' IN BOOLEAN MODE)"
+],[
+    SQL1.SELECT(['id']).WHERE({ 'id.like': '1', 'id::len': 1 }).END(), 
+    // DSL1`SELECT [id] WHERE ${{ 'id.like': '1', 'id::len': 1 }}`,
+    "SELECT `id` FROM `table_1` WHERE `id` LIKE '1' AND len(`id`)=1"
 ],[
     SQL1.SELECT(['id']).MATCH({ id: '123-1' }).WHERE({ id: 1 }).END(), 
     DSL1`SELECT [id] MATCH ${{ id: '123-1' }} WHERE ${{ id: 1 }}`,
-    "SELECT `id` FROM `table_1` WHERE `id`=1 AND MATCH(`id`) AGAINST('123-1' IN BOOLEAN MODE)"
+    "SELECT `id` FROM `table_1` WHERE `id`=1 OR MATCH(`id`) AGAINST('123-1' IN BOOLEAN MODE)"
 ],[
     SQL1.SELECT(['id']).MATCH({ id: '123-1' }).WHERE({ id: 1 }).SQL('WHERE', 'AND x=?', 1).END(), 
     DSL1`SELECT [id] MATCH ${{ id: '123-1' }} WHERE ${{ id: 1 }} SQL ${'AND x=?'} ${1}`,
-    "SELECT `id` FROM `table_1` WHERE `id`=1 AND MATCH(`id`) AGAINST('123-1' IN BOOLEAN MODE) AND x=1"
+    "SELECT `id` FROM `table_1` WHERE `id`=1 OR MATCH(`id`) AGAINST('123-1' IN BOOLEAN MODE) AND x=1"
 ],]
 
 
@@ -158,24 +162,16 @@ const SAMPLE_SQLS3: string[][] = [[
     "SELECT `table_1`.`id`, `table_222222`.`id`, `3table`.`id` FROM (`table_1` LEFT JOIN `table_222222` ON `table_1`.`id`=`table_222222`.`id`) LEFT JOIN `3table` ON `table_1`.`id`=`3table`.`id`"
 ]]
 
-function testSQL(sqls: string[][]) {
-    sqls.forEach(([sql, str, dsl]) => {
-        if (dsl) {
-            expect(str).toBe(dsl)
-        }
-        expect(sql).toBe(str)
-        
+function testSQL(sqls: string[][], name: string) {
+    sqls.forEach(([sql, str, dsl], idx) => {
+        test(`test sample ${name}: ${idx}`, () => {
+            if (dsl) {
+                expect(str).toBe(dsl)
+            }
+            expect(sql).toBe(str)
+        })
     })
 }
-
-test('test sample sqls 1', () => {
-    testSQL(SAMPLE_SQLS1)
-})
-
-test('test sample sqls 2', () => {
-    testSQL(SAMPLE_SQLS2)
-})
-
-test('test sample sqls 3', () => {
-    testSQL(SAMPLE_SQLS3)
-})
+testSQL(SAMPLE_SQLS1, 'sql 1')
+testSQL(SAMPLE_SQLS2, 'sql 2')
+testSQL(SAMPLE_SQLS3, 'sql 3')
