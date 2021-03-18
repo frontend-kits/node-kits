@@ -19,6 +19,7 @@
     "format": "npm run format:tslint",
     "format:tslint": "tslint --fix --config ./tslint.json 'src/**/*.{ts,tsx}'",
     "test": "jest packages --coverage",
+    "test:aliyun": "jest packages/aliyun --coverage",
     "test:build": "npm run build && npm run test"
   },
   "devDependencies": {

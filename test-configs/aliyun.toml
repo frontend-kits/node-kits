@@ -20,6 +20,10 @@ host = "rm-uf6ptrnm757lc165vao.mysql.rds.aliyuncs.com"
 [mysql.search]
 database = 'smoex_learn_jp_search'
 
+[sms.verify]
+sign = 'smoex'
+template = 'SMS_175537915'
+
 [env.oss]
 target = 'static'
 package = 'master-web'

@@ -4,6 +4,7 @@ import { redisClients } from "../clients/redis"
 import { mysqlClients } from "../clients/mysql"
 import { fcClients } from "../clients/ali-fc"
 import { ossClients, uploadFiles } from "../clients/ali-oss"
+import { smsClients } from "../clients/ali-sms"
 
 test('test redis connection', async () => {
     const redis = redisClients['user']
@@ -40,5 +41,11 @@ test('test ali-oss connection', async () => {
 test('test ali-oss upload', async done => {
     await uploadFiles('./test-configs/aliyun.toml')
     await uploadFiles('./test-configs')
+    done()
+})
+
+test('test ali-sms', async done => {
+    const sms = smsClients['verify']
+    // const res = await sms.send('18317893372', { code: 123456 })
     done()
 })

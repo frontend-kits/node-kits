@@ -1,4 +1,4 @@
-
+// @ts-ignore
 import OSS from 'ali-oss'
 import { xSingleton } from '@basic-kits/js'
 import { envConfig } from "../modules/config";

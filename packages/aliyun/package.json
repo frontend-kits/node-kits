@@ -22,6 +22,7 @@
   "homepage": "https://github.com/smoex-logic/smoex-business#readme",
   "dependencies": {
     "@alicloud/fc2": "^2.2.2",
+    "@alicloud/pop-core": "^1.7.10",
     "@basic-kits/js": "^0.0.7",
     "@node-kits/koa": "^0.0.7",
     "@types/ali-oss": "^6.0.7",

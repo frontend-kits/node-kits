@@ -25,6 +25,10 @@ export type IAliyunFCItem = {
     region: string,
     alias: string,
 }
+export type IAliyunSMSItem = {
+    sign: string,
+    template: string,
+}
 
 export type IProxyConfigs = {
     [key in string]?: {
@@ -70,6 +74,7 @@ type IAliyunConfigs = {
     env: IAliyunEnvConfigs,
     oss?: MapKeyTypes<IAliyunOSSItem>,
     fc?: MapKeyTypes<IAliyunFCItem>,
+    sms?: MapKeyTypes<IAliyunSMSItem>,
     mysql?:  MapKeyTypes<IMysqlItem>,
     redis?: MapKeyTypes<IRedisItem>,
 }

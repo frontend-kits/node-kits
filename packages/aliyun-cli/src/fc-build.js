@@ -1,4 +1,8 @@
-
+// "build": "npm run build:dev && node ./bin/zip-build.js",
+//     "build:dev": "npm run build:clean && NODE_ENV=production webpack",
+//     "build:prod": "npm run build:dev && node ./bin/zip-build.js prod",
+//     "build:clean": "node ./bin/clean.js && npm run fix:alioss",
+//     "fix:alioss": "node ./bin/fix-alioss.js",
 const { execFileSync, execSync } = require('child_process');
 const path = require('path')
 
