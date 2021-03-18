@@ -1,0 +1,11 @@
+[aliyun]
+accessKeyId = "LTAI694joxMGgHJa"
+accessKeySecret = "siOZ41IRUliP6mzca7BfejgvP5furM"
+accountId = 1894173216965361
+
+[mysql.search]
+user = 'smoex_root'
+password = 'smoexxxxx'
+
+[redis.user]
+password = 'r-uf6b4a74bc1d3ab4:Smoex123456'

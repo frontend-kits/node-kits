@@ -1,4 +1,4 @@
-import { createVaildator, IValidatorCheck } from "../modules/vaildator"
+import { createVaildator, IValidatorCheck } from "../modules/req/vaildator"
 
 const xUser1: IValidatorCheck[] = [
     { name: 'name', type: 'number', rules: []},

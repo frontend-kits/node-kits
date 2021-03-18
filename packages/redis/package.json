@@ -1,6 +1,6 @@
 {
-  "name": "@node-kits/koa",
-  "version": "0.0.6",
+  "name": "@node-kits/redis",
+  "version": "0.0.1",
   "description": "js-basic-kit",
   "sideEffects": false,
   "main": "lib/index.js",
@@ -25,12 +25,9 @@
   },
   "homepage": "https://github.com/lynnkoo/js-basic-kit#readme",
   "devDependencies": {
-    "@node-kits/http": "^0.0.1",
     "@types/jest": "^25.2.3",
-    "@types/supertest": "^2.0.10",
     "jest": "^26.0.1",
     "prettier": "^1.18.2",
-    "supertest": "^6.0.1",
     "tslint": "^5.11.0",
     "typescript": "^3.2.2"
   },
@@ -45,22 +42,11 @@
   },
   "gitHead": "f12b8bd6d88f9f211723965110f37be5cb72617d",
   "dependencies": {
-    "@basic-kits/js": "^0.0.5",
-    "@types/debug": "^4.1.5",
-    "@types/http-proxy-middleware": "^0.19.3",
-    "@types/koa": "^2.11.3",
-    "@types/koa-bodyparser": "^4.3.0",
-    "@types/koa-json": "^2.0.18",
-    "@types/koa-logger": "^3.1.1",
-    "@types/koa-router": "^7.4.1",
-    "debug": "^4.1.1",
-    "http-proxy-middleware": "^1.0.5",
-    "koa": "^2.7.0",
-    "koa-bodyparser": "^4.2.1",
-    "koa-json": "^2.0.2",
-    "koa-logger": "^3.2.0",
-    "koa-router": "^7.4.0",
-    "koa-send": "^5.0.1",
-    "koa2-connect": "^1.0.2"
+    "@types/async-redis": "^1.1.1",
+    "@types/ioredis": "^4.22.0",
+    "async-redis": "^1.1.7",
+    "ioredis": "^4.24.2",
+    "node-cache-redis": "^6.3.1",
+    "redis": "^3.0.2"
   }
 }

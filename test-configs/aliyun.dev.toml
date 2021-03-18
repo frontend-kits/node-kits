@@ -1,0 +1,20 @@
+[res]
+local = false
+
+[res.web]
+path = "../../projects/web/build"
+
+[res.h5]
+path = "../../projects/mobile/build"
+
+# [static.ext.admin]
+# path = "../../projects/mobile/build"
+
+# [service.account]
+# host = "127.0.0.1:9001"
+
+[api]
+# http = false
+
+[api.search]
+host = "http://24280089-1894173216965361.test.functioncompute.com"

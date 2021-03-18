@@ -1,0 +1,55 @@
+{
+  "name": "@node-kits/aliyun",
+  "version": "0.0.1",
+  "description": "A simplify work flow for redux",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smoex-nodejs/npm-repo.git"
+  },
+  "keywords": [],
+  "author": "lynnkoo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/smoex-logic/smoex-business/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/smoex-logic/smoex-business#readme",
+  "dependencies": {
+    "@alicloud/fc2": "^2.2.2",
+    "@basic-kits/js": "^0.0.7",
+    "@node-kits/koa": "^0.0.6",
+    "@types/ali-oss": "^6.0.7",
+    "@types/http-proxy-middleware": "^0.19.3",
+    "@types/ioredis": "^4.22.0",
+    "@types/lodash": "^4.14.168",
+    "@types/redis": "^2.8.28",
+    "ali-oss": "^6.10.0",
+    "axios": "^0.21.1",
+    "debug": "^4.1.1",
+    "http-proxy-middleware": "^1.0.6",
+    "ioredis": "^4.24.2",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "koa-send": "^5.0.1",
+    "koa2-connect": "^1.0.2",
+    "lodash": "^4.17.20",
+    "mysql2": "^2.2.5",
+    "redis": "^3.0.2",
+    "redux": "^4.0.5",
+    "toml": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/koa-send": "^4.1.2",
+    "typescript": "^3.2.2"
+  },
+  "gitHead": "f214ca3b395af1c101942e5496486e1508259d29"
+}

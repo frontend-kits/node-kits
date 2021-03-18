@@ -1,0 +1,29 @@
+{
+  "name": "@node-kits/aliyun-cli",
+  "version": "0.0.2",
+  "description": "",
+  "main": "src/index.js",
+  "bin": {
+    "x-aliyun-cli": "./src/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "help": "NODE_ENV=production webpack --config /Users/bilibili/Desktop/basic-kit/node-kits/packages/aliyun-cli/src/webpackNode.config.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@node-kits/aliyun": "^0.0.1",
+    "awesome-typescript-loader": "^5.2.1",
+    "compressing": "^1.5.1",
+    "nodemon": "^1.19.1",
+    "ts-node": "^8.10.2",
+    "tslib": "^2.0.0",
+    "typescript": "^3.9.6",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  }
+}

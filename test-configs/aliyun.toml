@@ -1,0 +1,33 @@
+[oss]
+region = "oss-cn-shanghai"
+
+[oss.static]
+bucket = "smoex-public"
+endpoint = "https://public.smoex.com"
+
+[fc]
+region = "cn-shanghai"
+
+[fc.search]
+alias = 'smoex-learn-jp-server.6D0A3851CEBB'
+
+[redis.user]
+host = 'r-uf6b4a74bc1d3ab4pd.redis.rds.aliyuncs.com'
+
+[mysql]
+host = "rm-uf6ptrnm757lc165vao.mysql.rds.aliyuncs.com"
+
+[mysql.search]
+database = 'smoex_learn_jp_search'
+
+[env.oss]
+target = 'static'
+package = 'master-web'
+
+[env.fc]
+alias = 'smoex-learn-jp-server.6D0A3851CEBB'
+
+[env.res]
+web = 'master-web'
+h5 = 'master-h5'
+rn = 'master-rn'
