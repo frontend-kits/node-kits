@@ -1,6 +1,6 @@
 {
   "name": "@node-kits/koa",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "js-basic-kit",
   "sideEffects": false,
   "main": "lib/index.js",
@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/lynnkoo/js-basic-kit#readme",
   "devDependencies": {
-    "@node-kits/http": "^0.0.1",
+    "@node-kits/http": "^0.0.2",
     "@types/jest": "^25.2.3",
     "@types/supertest": "^2.0.10",
     "jest": "^26.0.1",

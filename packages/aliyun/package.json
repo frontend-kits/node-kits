@@ -1,6 +1,6 @@
 {
   "name": "@node-kits/aliyun",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simplify work flow for redux",
   "main": "lib/index.js",
   "scripts": {
@@ -23,7 +23,7 @@
   "dependencies": {
     "@alicloud/fc2": "^2.2.2",
     "@basic-kits/js": "^0.0.7",
-    "@node-kits/koa": "^0.0.6",
+    "@node-kits/koa": "^0.0.7",
     "@types/ali-oss": "^6.0.7",
     "@types/http-proxy-middleware": "^0.19.3",
     "@types/ioredis": "^4.22.0",
