@@ -6,12 +6,14 @@ import { envConfig } from "../modules/config";
 export type IRedisOptions = {
     host: string,
     password?: string,
+    prefix?: string,
 }
 
 export function createRedisClient(opts: IRedisOptions) {
   const client = new Redis({
     host: opts.host,
     password: opts.password || undefined,
+    keyPrefix: opts.prefix,
   })
   return client
 }
@@ -26,6 +28,7 @@ export const redisClients = xSingleton(key => {
   }
   return createRedisClient({
       host: mItem?.host || item.host,
-      password: auth?.password
+      password: auth?.password,
+      prefix: `[${key}]`,
   })
 })
