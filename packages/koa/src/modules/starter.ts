@@ -28,6 +28,10 @@ export const listenServer = (app: Koa) => {
     server.listen(port);
     server.on('error', onError);
     server.on('listening', onListening(server));
+
+    // fix for aliyun fc
+    server.timeout = 15 * 60 * 1000
+    server.keepAliveTimeout = 15 * 60 * 1000
 }
 
 /**
